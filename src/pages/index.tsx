@@ -1,6 +1,10 @@
 export default function Home(props) {
   console.log(props.episodes);
-  return <h1>Body</h1>;
+  return (
+    <div>
+      <p>{JSON.stringify(props.episodes)}</p>
+    </div>
+  );
 }
 
 export async function getStaticProps() {
