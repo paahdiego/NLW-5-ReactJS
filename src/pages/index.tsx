@@ -6,6 +6,8 @@ import { convertDurationToTimeString } from "../utils/covertDurationToTimeString
 import styles from "./home.module.scss";
 import Image from "next/image";
 import Link from "next/link";
+import { PlayerContext } from "../contexts/PlayerContext";
+import { useContext } from "react";
 
 type Episode = {
   id: string;
@@ -24,30 +26,37 @@ type HomeProps = {
 };
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
+  const { play } = useContext(PlayerContext);
+
   return (
     <div className={styles.homepage}>
       <section className={styles.latestEpisodes}>
         <h2>Últimos lançamentos</h2>
         <ul>
-          {latestEpisodes.map((ep) => {
+          {latestEpisodes.map((episode) => {
             return (
-              <li key={ep.id}>
+              <li key={episode.id}>
                 <Image
                   width={192}
                   height={192}
-                  src={ep.thumbnail}
-                  alt={ep.title}
+                  src={episode.thumbnail}
+                  alt={episode.title}
                   objectFit="cover"
                 />
                 <div className={styles.episodeDetails}>
-                  <Link href={`/episodes/${ep.id}`}>
-                    <a>{ep.title}</a>
+                  <Link href={`/episodes/${episode.id}`}>
+                    <a>{episode.title}</a>
                   </Link>
-                  <p>{ep.members}</p>
-                  <span>{ep.publishedAt}</span>
-                  <span>{ep.durationAsString}</span>
+                  <p>{episode.members}</p>
+                  <span>{episode.publishedAt}</span>
+                  <span>{episode.durationAsString}</span>
                 </div>
-                <button type="button">
+                <button
+                  type="button"
+                  onClick={() => {
+                    play(episode);
+                  }}
+                >
                   <img src="/play-green.svg" alt="Tocar episódio" />
                 </button>
               </li>
