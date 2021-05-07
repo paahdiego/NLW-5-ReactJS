@@ -1,13 +1,14 @@
 import { GetStaticProps } from "next";
 import { api } from "../services/api";
 import { format, parseISO } from "date-fns";
-import ptBr from "date-fns/locale/pt-BR";
 import { convertDurationToTimeString } from "../utils/covertDurationToTimeString";
+import { usePlayer } from "../contexts/PlayerContext";
+
+import Head from "next/head";
+import ptBr from "date-fns/locale/pt-BR";
 import styles from "./home.module.scss";
 import Image from "next/image";
 import Link from "next/link";
-import { PlayerContext } from "../contexts/PlayerContext";
-import { useContext } from "react";
 
 type Episode = {
   id: string;
@@ -26,14 +27,19 @@ type HomeProps = {
 };
 
 export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
-  const { play } = useContext(PlayerContext);
+  const { playList } = usePlayer();
+
+  const episodeList = [...latestEpisodes, ...allEpisodes];
 
   return (
     <div className={styles.homepage}>
+      <Head>
+        <title>Home | Podcastr</title>
+      </Head>
       <section className={styles.latestEpisodes}>
         <h2>Últimos lançamentos</h2>
         <ul>
-          {latestEpisodes.map((episode) => {
+          {latestEpisodes.map((episode, index) => {
             return (
               <li key={episode.id}>
                 <Image
@@ -54,7 +60,7 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
                 <button
                   type="button"
                   onClick={() => {
-                    play(episode);
+                    playList(episodeList, index);
                   }}
                 >
                   <img src="/play-green.svg" alt="Tocar episódio" />
@@ -79,28 +85,33 @@ export default function Home({ latestEpisodes, allEpisodes }: HomeProps) {
             </tr>
           </thead>
           <tbody>
-            {allEpisodes.map((ep) => {
+            {allEpisodes.map((episode, index) => {
               return (
-                <tr key={ep.id}>
+                <tr key={episode.id}>
                   <td style={{ width: 72 }}>
                     <Image
                       width={120}
                       height={120}
-                      src={ep.thumbnail}
-                      alt={ep.title}
+                      src={episode.thumbnail}
+                      alt={episode.title}
                       objectFit="cover"
                     />
                   </td>
                   <td>
-                    <Link href={`/episodes/${ep.id}`}>
-                      <a>{ep.title}</a>
+                    <Link href={`/episodes/${episode.id}`}>
+                      <a>{episode.title}</a>
                     </Link>
                   </td>
-                  <td>{ep.members}</td>
-                  <td>{ep.publishedAt}</td>
-                  <td>{ep.durationAsString}</td>
+                  <td>{episode.members}</td>
+                  <td>{episode.publishedAt}</td>
+                  <td>{episode.durationAsString}</td>
                   <td>
-                    <button type="button">
+                    <button
+                      type="button"
+                      onClick={() =>
+                        playList(episodeList, index + latestEpisodes.length)
+                      }
+                    >
                       <img src="/play-green.svg" alt="Tocar episódio" />
                     </button>
                   </td>
@@ -143,7 +154,7 @@ export const getStaticProps: GetStaticProps = async () => {
 
   const latestEpisodes = episodes.slice(0, 2);
   const allEpisodes = episodes.slice(2, episodes.length);
-  console.log(latestEpisodes);
+
   return {
     props: {
       allEpisodes,
