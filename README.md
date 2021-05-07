@@ -2,8 +2,7 @@
 <br />
 <p align="center">
 
-  <img src="" alt="Podcastr" width="200">
-
+  <img src=".github/logo.png" alt="Podcastr" width="200">
 
   <h3 align="center">Podcastr</h3>
 
@@ -12,8 +11,6 @@
     <br />
   </p>
 </p>
-
-
 
 <!-- TABLE OF CONTENTS -->
 <details open="close">
@@ -31,61 +28,60 @@
   </ol>
 </details>
 
-
-
 <!-- ABOUT THE PROJECT -->
+
 ## Sobre o Projeto
+
   <p align="center">
-  <img src="" alt="Podcastr" height="400">
+  <img src=".github/podcastr.png" alt="Podcastr" height="400">
   </p>
   </br>
-  Trata-se de uma plataforma que permite que ONGs criem seus cadastros e possam cadastrar casos que precisam de ajuda. O cadastro das ONGs e dos casos é feito pelo app web desenvolvido em ReactJS. O backend foi desenvolvido utilizando NodeJS e a aplicação mobile (iOS e Android) que serve para que usuários que queiram contribuir com essas ONGs através de doações monetárias, será desenvolvida em Flutter (Em Breve).
+  Trata-se de uma plataforma onde o usuário pode ouvir episódios de podcasts.
 
 ### Tecnologias utilizadas
 
-* [ReactJS](https://pt-br.reactjs.org/)
-* [NodeJS](https://nodejs.org/en/)
-* [Flutter](https://flutter.dev/)
-* [Dart](https://dart.dev/)
+- [ReactJS](https://pt-br.reactjs.org/)
+- [Next.js](https://nextjs.org/)
+- [TypeScript](https://www.typescriptlang.org/)
 
 ### Layout Figma
 
-* [Figma](https://www.figma.com/file/2C2yvw7jsCOGmaNUDftX9n/Be-The-Hero---OmniStack-11?node-id=0%3A1)
-
+- [Figma](https://www.figma.com/file/E821ajRZEmdt0O2nhJlNXl/Podcastr-Copy?node-id=160%3A2761)
 
 ## Instalação
 
 1. Crie um clone desse repo e acesse o diretório clonado.
+
    ```sh
-   git clone https://github.com/paahdiego/omnistack11.git    
-   
+   git clone git@github.com:paahdiego/NLW-5-ReactJS.git
+
    ou
-   
-   git@github.com:paahdiego/omnistack11.git
+
+   git clone https://github.com/paahdiego/NLW-5-ReactJS.git
    ```
-   
+
 2. Instalação de dependencias
    Para instalar os pacotes do backend ou frontend, basta acessar a pasta e utilizar o comando:
+
    ```sh
    npm install
    ```
-   
-   Para a aplicação Flutter, basta acessar a pasta mobile e utilizar o comando: 
-   ```sh
-   flutter pub get
-   ```
-   
+
 3. Rodar aplicação
-   Backend e frontend:
+   FAKE API:
+
    ```sh
-   npm start
-   ```   
-   App em Flutter:
+   yarn server
+   ```
+
+   Front-end:
+
    ```sh
-   flutter run
-   ```   
-   
+   yarn dev
+   ```
+
 <!-- LICENSE -->
+
 ## Licença
 
 Distributed under the MIT License. See `LICENSE` for more information.
